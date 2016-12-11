@@ -1,21 +1,21 @@
-# Xmas33
+# Candelabra
 
 This is probably not very useful for anyone else.
 
 
 
 ```
-#include <Xmas33.h>
+#include <Candelabra.h>
 
-Xmas33 x;
+Candelabra candelabra;
 
 void setup()
 {
-	x.setup();
+	candelabra.setup();
 }
 
 void loop()
 {
-	x.loop();
+	candelabra.loop();
 }
 ```
