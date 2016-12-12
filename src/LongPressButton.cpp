@@ -1,14 +1,14 @@
 
 
-#include <Button.h>
+#include <LongPressButton.h>
 
-Button::Button(int pin, int delay, int holdTime) : pin(pin), holdTime(holdTime)
+LongPressButton::LongPressButton(int pin, int delay, int holdTime) : pin(pin), holdTime(holdTime)
 {
 	pinMode(pin, INPUT_PULLUP);
 	debouncer.delay = delay;
 }
 
-void Button::update()
+void LongPressButton::update()
 {
 	debouncer.update(!digitalRead(pin));
 

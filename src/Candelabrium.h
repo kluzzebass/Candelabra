@@ -3,7 +3,7 @@
 #define _Candelabrium_H_
 
 #include <Arduino.h>
-#include <Button.h>
+#include <LongPressButton.h>
 #include <Adafruit_NeoPixel.h>
 #include <avr/pgmspace.h>
 #include <avr/power.h>
@@ -54,8 +54,8 @@ public:
 	void loop();
 
 private:
-	Button button1 = Button(BUTTON1_PIN, DEBOUNCE_DELAY, HOLD_TIME);
-	Button button2 = Button(BUTTON2_PIN, DEBOUNCE_DELAY, HOLD_TIME);
+	LongPressButton button1 = LongPressButton(BUTTON1_PIN, DEBOUNCE_DELAY, HOLD_TIME);
+	LongPressButton button2 = LongPressButton(BUTTON2_PIN, DEBOUNCE_DELAY, HOLD_TIME);
 	Adafruit_NeoPixel strip = Adafruit_NeoPixel(LED_COUNT, STRIP_PIN, NEO_GRB + NEO_KHZ800);
 
 	uint8_t brightness = 0;

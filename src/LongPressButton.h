@@ -1,13 +1,13 @@
 
-#ifndef _Button_H_
-#define _Button_H_
+#ifndef _LongPressButton_H_
+#define _LongPressButton_H_
 
 #include <Debouncer.h>
 
-class Button
+class LongPressButton
 {
 public:
-	Button(int pin, int delay, int holdTime);
+	LongPressButton(int pin, int delay, int holdTime);
 
 	void update();
 
@@ -38,4 +38,4 @@ protected:
 
 
 
-#endif // _Button_H_
+#endif // _LongPressButton_H_
