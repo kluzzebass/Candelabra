@@ -7,7 +7,7 @@
 class LongPressButton
 {
 public:
-	LongPressButton(int pin, int delay, int holdTime);
+	LongPressButton(uint8_t pin, uint16_t delay, uint16_t holdTime);
 
 	void update();
 
@@ -20,9 +20,9 @@ public:
 protected:
 	Debouncer debouncer;
 
-	int pin;
-	int delay;
-	int holdTime;
+	uint8_t pin;
+	uint16_t delay;
+	uint16_t holdTime;
 
 	bool hasChanged = false;
 	bool isPressed = false;

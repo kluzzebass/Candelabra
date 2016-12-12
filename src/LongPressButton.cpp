@@ -1,8 +1,7 @@
 
-
 #include <LongPressButton.h>
 
-LongPressButton::LongPressButton(int pin, int delay, int holdTime) : pin(pin), holdTime(holdTime)
+LongPressButton::LongPressButton(uint8_t pin, uint16_t delay, uint16_t holdTime) : pin(pin), holdTime(holdTime)
 {
 	pinMode(pin, INPUT_PULLUP);
 	debouncer.delay = delay;
@@ -17,17 +16,14 @@ void LongPressButton::update()
 
 	if (debouncer.changed)
 	{
-//		Serial.println("state changed");
 		if (debouncer.state)
 		{
-//			Serial.println("starting hold");
 			holdStart = now;
 			isPressed = true;
 			hasChanged = true;
 		}
 		else
 		{
-//			Serial.println("ending hold");
 			holdStart = 0;
 			isLongPressed = false;
 			isPressed = false;
@@ -38,7 +34,6 @@ void LongPressButton::update()
 	{
 		if (debouncer.state && !isLongPressed && now > (holdStart + holdTime))
 		{
-//			Serial.println("long press detected");
 			isLongPressed = true;
 			isPressed = false;
 			hasChanged = true;

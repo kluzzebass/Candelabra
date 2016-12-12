@@ -19,9 +19,13 @@ void Candelabrium::loop()
 	button1.update();
 	button2.update();
 
-	if (!on && ( (button1.changed() && button1.pressed()) || (button2.changed() && button2.pressed()) ) )
+	if (!on)
 	{
-		togglePower();
+		// Any short button press will turn the power on again...
+		if ((button1.changed() && button1.pressed()) || (button2.changed() && button2.pressed()))
+			togglePower();
+
+		// ...but we'll still exit this loop() call.
 		return;
 	}
 
@@ -37,7 +41,7 @@ void Candelabrium::changeBrightness()
 {
 	brightness = (brightness + 1) % BRIGHTNESS_LEVELS;
 
-	uint8_t level = pgm_read_byte_near(brightnessLevels + brightness);
+	uint8_t level = brightnessLevels[brightness];
 	strip.setBrightness(level);
 	Serial.print(F("Brightness set to level: "));
 	Serial.print(brightness);
@@ -50,14 +54,14 @@ void Candelabrium::togglePower()
 {
 	if (on)
 	{
-		Serial.println("Powering off.");
+		Serial.println(F("Powering off."));
 		on = false;
 		strip.clear();
 		strip.show();
 	}
 	else
 	{
-		Serial.println("Powering on.");
+		Serial.println(F("Powering on."));
 		on = true;
 	}
 }
