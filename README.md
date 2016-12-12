@@ -1,21 +1,19 @@
-# Candelabra
+# Candelabrium
 
 This is probably not very useful for anyone else.
 
-
-
 ```
-#include <Candelabra.h>
+#include <Candelabrium.h>
 
-Candelabra candelabra;
+Candelabrium candelabrium;
 
 void setup()
 {
-	candelabra.setup();
+	candelabrium.setup();
 }
 
 void loop()
 {
-	candelabra.loop();
+	candelabrium.loop();
 }
 ```

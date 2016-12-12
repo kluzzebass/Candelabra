@@ -1,9 +1,9 @@
 
-#ifndef CANDELABRA_H
-#define CANDELABRA_H
+#ifndef _Candelabrium_H_
+#define _Candelabrium_H_
 
 #include <Arduino.h>
-#include <Debouncer.h>
+#include <Button.h>
 #include <Adafruit_NeoPixel.h>
 #include <avr/pgmspace.h>
 #include <avr/power.h>
@@ -13,10 +13,11 @@
 #define STRIP_PIN 6
 #define LED_COUNT 33
 #define DEBOUNCE_DELAY 1000
-#define BRIGHTNESS_LEVELS 9
+#define HOLD_TIME 1000
+#define BRIGHTNESS_LEVELS 8
 
 const uint8_t brightnessLevels[BRIGHTNESS_LEVELS] PROGMEM = {
-	255, 223, 191, 159, 127, 95, 63, 31, 0
+	255, 223, 191, 159, 127, 95, 63, 31
 };
 
 const uint8_t seq1[LED_COUNT] PROGMEM = {
@@ -44,24 +45,27 @@ const uint8_t seq5[LED_COUNT] PROGMEM = {
 };
 
 
-class Candelabra
+class Candelabrium
 {
 public:
-	Candelabra();
+	Candelabrium();
 
 	void setup();
 	void loop();
 
 private:
-	Debouncer btn1 = Debouncer();
-	Debouncer btn2 = Debouncer();
+	Button button1 = Button(BUTTON1_PIN, DEBOUNCE_DELAY, HOLD_TIME);
+	Button button2 = Button(BUTTON2_PIN, DEBOUNCE_DELAY, HOLD_TIME);
 	Adafruit_NeoPixel strip = Adafruit_NeoPixel(LED_COUNT, STRIP_PIN, NEO_GRB + NEO_KHZ800);
+
 	uint8_t brightness = 0;
 
-	void changeBrightness();
+	bool on = true;
 
+	void changeBrightness();
+	void togglePower();
 
 };
 
 
-#endif // CANDELABRA_H
+#endif // _Candelabrium_H_
