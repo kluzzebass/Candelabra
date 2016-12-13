@@ -7,13 +7,13 @@ void Candelabrium::setup()
 	Serial.begin(115200);
 #endif
 	randomSeed(analogRead(0));
-	strip.begin();
-	strip.show();
 
+	strip.begin();
+	strip.setBrightness(brightnessLevels[brightness]);
+	strip.show();
 
 	priFx = effects[1];
 	priFx->init(priBuf, LED_COUNT);
-
 }
 
 void Candelabrium::loop()
@@ -38,8 +38,11 @@ void Candelabrium::loop()
 		togglePower();
 
 	if (button2.changed() && button2.pressed())
+	{
+		currentEffect = (currentEffect + 1) % ( sizeof(effects) / sizeof(effects[0]));
+		priFx = effects[currentEffect];
 		priFx->init(priBuf, LED_COUNT);
-
+	}
 
 	unsigned long now = millis();
 

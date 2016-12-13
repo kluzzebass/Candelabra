@@ -41,6 +41,12 @@ const uint8_t map5[LED_COUNT] = {
 	0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32
 };
 
+const uint8_t map6[LED_COUNT] = {
+	16, 14, 18, 12, 20, 10, 22, 8, 24, 6, 26, 4, 28, 2, 30, 0, 32,
+	1, 31, 3, 29, 5, 27, 7, 25, 9, 23, 11, 21, 13, 19, 15, 17
+};
+
+
 
 class Candelabrium
 {
@@ -57,18 +63,26 @@ private:
 
 	unsigned long lastTime = 0;
 
-	uint8_t brightness = 0;
+	uint8_t brightness = 6;
+	uint8_t currentEffect = 1; 
 
 	bool on = true;
 
 	Color priBuf[LED_COUNT];
 	Color secBuf[LED_COUNT];
 
-	Effect *effects[2] = {
-		new EffectOff(map1, false),
-		new EffectColorCycle(map1, true)
+	Effect *off = new EffectOff(map1);
+
+	Effect *effects[6] = {
+		new EffectColorCycle(map1),
+		new EffectColorCycle(map2),
+		new EffectColorCycle(map3),
+		new EffectColorCycle(map4),
+		new EffectColorCycle(map5),
+		new EffectColorCycle(map6)
 	};
 	
+
 	Effect *priFx = nullptr;
 	Effect *secFx = nullptr;
 

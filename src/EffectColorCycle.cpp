@@ -7,8 +7,10 @@ void EffectColorCycle::init(Color *buffer, int bufferSize)
 	this->buffer = buffer;
 	this->bufferSize = bufferSize;
 
-	this->sequencePosition = 0;
-	this->sequenceStep = random(1, 10);
+	this->sequencePosition = random(0, sequenceLength(false) - 1);
+	this->sequenceStep = random(5, 15);
+	this->sequenceSpeed = random(5, 15);
+	this->reverse = random(0, 1);
 }
 
 void EffectColorCycle::update()
@@ -18,5 +20,5 @@ void EffectColorCycle::update()
 		buffer[map[reverse ? (LED_COUNT - 1 - i) : i]] = colorSequence(this->sequencePosition + (i * sequenceStep), false);
 	}
 
-	this->sequencePosition = (this->sequencePosition + sequenceStep) % sequenceLength(false);
+	this->sequencePosition = (this->sequencePosition + sequenceSpeed) % sequenceLength(false);
 }

@@ -10,9 +10,9 @@
 class Effect
 {
 public:
-	Effect(const uint8_t (&map)[LED_COUNT], bool reverse) : map(map), reverse(reverse) {}
-	virtual void init(Color *buffer, int bufferSize);
-	virtual void update();
+	Effect(const uint8_t (&map)[LED_COUNT]) : map(map) {}
+	virtual void init(Color *buffer, int bufferSize) = 0;
+	virtual void update() = 0;
 
 
 protected:
