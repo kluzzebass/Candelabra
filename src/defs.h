@@ -12,6 +12,6 @@
 #define BRIGHTNESS_LEVELS 8
 #define EFFECT_RUN_TIME 30000
 #define EFFECT_TRANSITION_TIME 2000
-#define EFFECT_DELAY 50
+#define EFFECT_DELAY 20
 
 #endif // _defs_h_

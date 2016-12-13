@@ -7,10 +7,10 @@ void EffectColorCycle::init(Color *buffer, int bufferSize)
 	this->buffer = buffer;
 	this->bufferSize = bufferSize;
 
-	this->sequencePosition = random(0, sequenceLength(false) - 1);
-	this->sequenceStep = random(5, 15);
-	this->sequenceSpeed = random(5, 15);
-	this->reverse = random(0, 1);
+	this->sequencePosition = random(0, sequenceLength(false));
+	this->sequenceStep = random(5, 16);
+	this->sequenceSpeed = random(5, 16);
+	this->reverse = random(0, 2);
 }
 
 void EffectColorCycle::update()

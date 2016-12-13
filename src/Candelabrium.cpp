@@ -12,7 +12,7 @@ void Candelabrium::setup()
 	strip.setBrightness(brightnessLevels[brightness]);
 	strip.show();
 
-	priFx = effects[1];
+	priFx = effects[currentEffect];
 	priFx->init(priBuf, LED_COUNT);
 }
 
@@ -42,6 +42,7 @@ void Candelabrium::loop()
 		currentEffect = (currentEffect + 1) % ( sizeof(effects) / sizeof(effects[0]));
 		priFx = effects[currentEffect];
 		priFx->init(priBuf, LED_COUNT);
+		return;
 	}
 
 	unsigned long now = millis();
@@ -53,7 +54,11 @@ void Candelabrium::loop()
 
 	for (int i = 0; i < LED_COUNT; i++)
 	{
-		strip.setPixelColor(i, priBuf[i].r, priBuf[i].g, priBuf[i].b);
+		strip.setPixelColor(i,
+			pgm_read_byte(&gamma[priBuf[i].r]),
+			pgm_read_byte(&gamma[priBuf[i].g]),
+			pgm_read_byte(&gamma[priBuf[i].b])
+		);
 	}
 	strip.show();
 

@@ -8,13 +8,19 @@ public:
 	Color() {}
 	Color(uint8_t r, uint8_t g, uint8_t b) : r(r), g(g), b(b) {}
 
-	Color fadeTo(Color destination, uint32_t numerator, uint32_t denominator)
+	void clear() { r = 0; g = 0; b = 0; }
+	Color fadeTo(Color destination, int32_t numerator, int32_t denominator)
 	{
 		if (!denominator) denominator = 1;
 		if (numerator > denominator) numerator = denominator;
-		uint8_t new_r = ((uint32_t)r * numerator)/denominator;
-		uint8_t new_g = ((uint32_t)g * numerator)/denominator;
-		uint8_t new_b = ((uint32_t)b * numerator)/denominator;
+
+		int32_t delta_r = destination.r - r;
+		int32_t delta_g = destination.g - g;
+		int32_t delta_b = destination.b - b;
+
+		uint8_t new_r = r + ((delta_r * numerator)/denominator);
+		uint8_t new_g = g + ((delta_g * numerator)/denominator);
+		uint8_t new_b = b + ((delta_b * numerator)/denominator);
 
 		return Color(new_r, new_g, new_b);
 	}
