@@ -1,6 +1,6 @@
 
-#ifndef _LongPressButton_H_
-#define _LongPressButton_H_
+#ifndef _LongPressButton_h_
+#define _LongPressButton_h_
 
 #include <Debouncer.h>
 
@@ -31,11 +31,4 @@ protected:
 
 };
 
-
-
-
-
-
-
-
-#endif // _LongPressButton_H_
+#endif // _LongPressButton_h_
