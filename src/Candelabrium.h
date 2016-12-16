@@ -93,10 +93,10 @@ private:
 
 	Effect *off = new EffectOff(map1);
 
-	Effect *effects[1] = {
-		new EffectTwinkle(map1)/*,
+	Effect *effects[3] = {
+		new EffectTwinkle(map1),
 		new EffectChase(map4),
-		new EffectColorCycle(map1),
+		new EffectColorCycle(map1)/*,
 		new EffectColorCycle(map2),
 		new EffectColorCycle(map3),
 		new EffectColorCycle(map4),

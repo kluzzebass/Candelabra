@@ -17,7 +17,7 @@ public:
 	EffectTwinkle(const uint8_t (&map)[LED_COUNT]) : Effect(map) {}
 
 	void init(Color *buffer, int bufferSize) override;
-	void update() override;
+	bool update() override;
 
 protected:
 	Color colors[TWINKLES];

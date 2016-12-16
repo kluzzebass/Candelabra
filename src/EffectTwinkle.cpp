@@ -5,6 +5,8 @@ void EffectTwinkle::init(Color *buffer, int bufferSize)
 {
 	this->buffer = buffer;
 	this->bufferSize = bufferSize;
+	this->lastTime = 0;
+	this->effectDelay = 20;
 
 	// Set all colors to black
 	for (int i = 0; i < bufferSize; i++)
@@ -20,11 +22,12 @@ void EffectTwinkle::init(Color *buffer, int bufferSize)
 	}
 }
 
-void EffectTwinkle::update()
+bool EffectTwinkle::update()
 {
+	if (!timeForUpdate()) return false;
+
 	int p;
 	Color c, black = Color(0, 0, 0);
-
 
 	for (int i = 0; i < bufferSize; i++) buffer[i].clear();
 
@@ -56,6 +59,8 @@ void EffectTwinkle::update()
 			progress[i] = -random(1, TWINKLE_MAX_DELAY);
 		}
 	}
+
+	return true;
 }
 
 

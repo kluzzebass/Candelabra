@@ -50,7 +50,12 @@ void Candelabrium::loop()
 	if (now < (lastTime + EFFECT_DELAY)) return;
 	lastTime = now;
 
-	priFx->update();
+	bool updated = false;
+
+	updated |= priFx->update();
+
+
+	if (!updated) return;
 
 	for (int i = 0; i < LED_COUNT; i++)
 	{

@@ -5,6 +5,9 @@ void EffectChase::init(Color *buffer, int bufferSize)
 {
 	this->buffer = buffer;
 	this->bufferSize = bufferSize;
+	this->lastTime = 0;
+	this->effectDelay = 50;
+
 	this->pixelPosition = 0;
 	this->sequencePosition = random(0, sequenceLength(false));
 	this->sequenceStep = random(5, 16);
@@ -13,8 +16,10 @@ void EffectChase::init(Color *buffer, int bufferSize)
 	this->tailLength = random(3, 8);
 }
 
-void EffectChase::update()
+bool EffectChase::update()
 {
+	if (!timeForUpdate()) return false;
+
 	uint8_t pos;
 	uint8_t shift;
 
@@ -35,4 +40,6 @@ void EffectChase::update()
 
 	pixelPosition = (pixelPosition + 1) % LED_COUNT;
 	sequencePosition = (sequencePosition + sequenceSpeed) % sequenceLength(false); 
+
+	return true;
 }

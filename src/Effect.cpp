@@ -54,4 +54,16 @@ uint16_t Effect::sequenceLength(bool includeWhite)
 	return colorsPerSegment * (includeWhite ? 7 : 6);
 }
 
+bool Effect::timeForUpdate()
+{
+	unsigned long now = millis();
+
+	if (now < (lastTime + effectDelay))
+		return false;
+
+	lastTime = now;
+
+	return true;
+}
+
 
