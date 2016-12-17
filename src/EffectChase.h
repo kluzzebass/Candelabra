@@ -9,7 +9,7 @@ class EffectChase : public Effect
 public:
 	EffectChase(const uint8_t (&map)[LED_COUNT]) : Effect(map) {}
 
-	void init(Color *buffer, int bufferSize) override;
+	void init(Color *buffer) override;
 	bool update() override;
 
 protected:

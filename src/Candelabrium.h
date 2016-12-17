@@ -12,6 +12,7 @@
 #include <EffectColorCycle.h>
 #include <EffectChase.h>
 #include <EffectTwinkle.h>
+#include <EffectTheaterChase.h>
 
 #include <defs.h>
 
@@ -48,6 +49,13 @@ const uint8_t map6[LED_COUNT] = {
 	1, 31, 3, 29, 5, 27, 7, 25, 9, 23, 11, 21, 13, 19, 15, 17
 };
 
+const uint8_t map7[LED_COUNT] = {
+	0, 32, 1, 31, 2, 30, 3, 29, 4, 28, 5, 27, 6, 26, 7, 25, 8, 24,
+	9, 23, 10, 22, 11, 21, 12, 20, 13, 19, 14, 18, 15, 17, 16
+};
+
+
+#ifdef GAMMA_CORRECTION
 const uint8_t PROGMEM gamma[] = {
 	  0,   1,   1,   1,   1,   1,   1,   1,   2,   2,   2,   2,   2,   2,   2,   2,
 	  2,   3,   3,   3,   3,   3,   3,   3,   4,   4,   4,   4,   4,   4,   5,   5,
@@ -66,7 +74,7 @@ const uint8_t PROGMEM gamma[] = {
 	187, 189, 191, 193, 195, 197, 199, 201, 203, 205, 207, 209, 212, 214, 216, 218,
 	220, 223, 225, 227, 229, 232, 234, 236, 238, 241, 243, 245, 248, 250, 253, 255
 };
-
+#endif
 
 class Candelabrium
 {
@@ -76,41 +84,48 @@ public:
 	void setup();
 	void loop();
 
-private:
+protected:
 	LongPressButton button1 = LongPressButton(BUTTON1_PIN, DEBOUNCE_DELAY, HOLD_TIME);
 	LongPressButton button2 = LongPressButton(BUTTON2_PIN, DEBOUNCE_DELAY, HOLD_TIME);
 	Adafruit_NeoPixel strip = Adafruit_NeoPixel(LED_COUNT, STRIP_PIN, NEO_GRB + NEO_KHZ800);
 
 	unsigned long lastTime = 0;
 
-	uint8_t brightness = 6;
-	uint8_t currentEffect = 0; 
+	uint8_t brightness = 0;
 
 	bool on = true;
 
-	Color priBuf[LED_COUNT];
-	Color secBuf[LED_COUNT];
+	bool cycling = true;
+
+	uint8_t currentEffect = 0; 
+
+	bool transitioning = false;
+	unsigned long now = 0;
+	unsigned long transitionStart = 0;
+
+	uint8_t currentBuffer = 1;
+	Color buffers[BUFFERS][LED_COUNT];
 
 	Effect *off = new EffectOff(map1);
 
-	Effect *effects[3] = {
-		new EffectTwinkle(map1),
+	Effect *effects[7] = {
+		new EffectTheaterChase(map4),
+		new EffectTwinkle(map1), // Doesn't actually use a map.
 		new EffectChase(map4),
-		new EffectColorCycle(map1)/*,
-		new EffectColorCycle(map2),
-		new EffectColorCycle(map3),
-		new EffectColorCycle(map4),
-		new EffectColorCycle(map5),
-		new EffectColorCycle(map6)*/
+		new EffectChase(map6),
+		new EffectColorCycle(map1),
+		new EffectColorCycle(map6),
+		new EffectColorCycle(map7)
 	};
-	
+
+	uint8_t fxCount = sizeof(effects) / sizeof(effects[0]);
 
 	Effect *priFx = nullptr;
 	Effect *secFx = nullptr;
 
 	void changeBrightness();
 	void togglePower();
-
+	void startTransition();
 };
 
 

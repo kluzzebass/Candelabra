@@ -9,7 +9,7 @@ class EffectOff : public Effect
 public:
 	EffectOff(const uint8_t (&map)[LED_COUNT]) : Effect(map) {}
 
-	void init(Color *buffer, int bufferSize) override;
+	void init(Color *buffer) override;
 	bool update() override;
 };
 

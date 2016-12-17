@@ -11,14 +11,13 @@ class Effect
 {
 public:
 	Effect(const uint8_t (&map)[LED_COUNT]) : map(map) {}
-	virtual void init(Color *buffer, int bufferSize) = 0;
+	virtual void init(Color *buffer) = 0;
 	virtual bool update() = 0;
 
+	Color *buffer = nullptr;
 
 protected:
 	const uint8_t (&map)[LED_COUNT];
-	uint8_t bufferSize;
-	Color *buffer = nullptr;
 	bool reverse = false;
 
 	unsigned long lastTime = 0;

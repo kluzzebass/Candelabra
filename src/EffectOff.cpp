@@ -1,15 +1,14 @@
 
 #include <EffectOff.h>
 
-void EffectOff::init(Color *buffer, int bufferSize)
+void EffectOff::init(Color *buffer)
 {
 	this->buffer = buffer;
-	this->bufferSize = bufferSize;
-	this->lastTime = 0;
-	this->effectDelay = 1000;
+	lastTime = 0;
+	effectDelay = 1000;
 
 	// Set all colors to black
-	for (int i = 0; i < bufferSize; i++)
+	for (int i = 0; i < LED_COUNT; i++)
 	{
 		buffer[i].clear();
 	}

@@ -4,7 +4,7 @@
 
 #include <Effect.h>
 
-#define TWINKLES 8
+#define TWINKLES 10
 #define TWINKLE_UP 10
 #define TWINKLE_STAY 3
 #define TWINKLE_DOWN 30
@@ -16,7 +16,7 @@ class EffectTwinkle : public Effect
 public:
 	EffectTwinkle(const uint8_t (&map)[LED_COUNT]) : Effect(map) {}
 
-	void init(Color *buffer, int bufferSize) override;
+	void init(Color *buffer) override;
 	bool update() override;
 
 protected:

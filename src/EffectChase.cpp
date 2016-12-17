@@ -1,19 +1,18 @@
 
 #include <EffectChase.h>
 
-void EffectChase::init(Color *buffer, int bufferSize)
+void EffectChase::init(Color *buffer)
 {
 	this->buffer = buffer;
-	this->bufferSize = bufferSize;
-	this->lastTime = 0;
-	this->effectDelay = 50;
+	lastTime = 0;
+	effectDelay = random(30, 61);
 
-	this->pixelPosition = 0;
-	this->sequencePosition = random(0, sequenceLength(false));
-	this->sequenceStep = random(5, 16);
-	this->sequenceSpeed = random(5, 16);
-	this->reverse = random(0, 2);
-	this->tailLength = random(3, 8);
+	pixelPosition = 0;
+	sequencePosition = random(0, sequenceLength(false));
+	sequenceStep = random(5, 16);
+	sequenceSpeed = random(5, 16);
+	reverse = random(0, 2);
+	tailLength = random(3, 8);
 }
 
 bool EffectChase::update()
@@ -29,7 +28,7 @@ bool EffectChase::update()
 
 	for (uint8_t i = 0; i < tailLength; i++)
 	{
-		shift = (tailLength - i);
+		shift = (tailLength - i - 1);
 		Color n = Color(c.r >> shift, c.g >> shift, c.b >> shift);
 
 		pos = (pixelPosition + i) % LED_COUNT; 

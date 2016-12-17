@@ -1,15 +1,14 @@
 
 #include <EffectTwinkle.h>
 
-void EffectTwinkle::init(Color *buffer, int bufferSize)
+void EffectTwinkle::init(Color *buffer)
 {
 	this->buffer = buffer;
-	this->bufferSize = bufferSize;
-	this->lastTime = 0;
-	this->effectDelay = 20;
+	lastTime = 0;
+	effectDelay = 25;
 
 	// Set all colors to black
-	for (int i = 0; i < bufferSize; i++)
+	for (int i = 0; i < LED_COUNT; i++)
 	{
 		buffer[i].clear();
 	}
@@ -17,7 +16,7 @@ void EffectTwinkle::init(Color *buffer, int bufferSize)
 	for (int i = 0; i < TWINKLES; i++)
 	{
 		colors[i] = colorSequence(random(0, sequenceLength(true)), true);
-		positions[i] = random(0, LED_COUNT);
+		positions[i] = findUnusedPosition();
 		progress[i] = -random(1, TWINKLE_MAX_DELAY);
 	}
 }
@@ -29,7 +28,7 @@ bool EffectTwinkle::update()
 	int p;
 	Color c, black = Color(0, 0, 0);
 
-	for (int i = 0; i < bufferSize; i++) buffer[i].clear();
+	for (int i = 0; i < LED_COUNT; i++) buffer[i].clear();
 
 	for (int i = 0; i < TWINKLES; i++)
 	{
@@ -64,7 +63,7 @@ bool EffectTwinkle::update()
 }
 
 
-// Non-deterministic as fuck, so don't set the TWINKLES too high.
+// Non-deterministic as fuck, so don't set the number of TWINKLES too high.
 uint8_t EffectTwinkle::findUnusedPosition()
 {
 	uint8_t pos;
@@ -80,6 +79,5 @@ uint8_t EffectTwinkle::findUnusedPosition()
 		}
 		if (!used) return pos;
 	}
-	Serial.println("Ran out of attempts!");
-	return 0;
+	return 0; // Odds are quite low that this will ever be reached.
 }
