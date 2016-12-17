@@ -89,21 +89,17 @@ protected:
 	LongPressButton button2 = LongPressButton(BUTTON2_PIN, DEBOUNCE_DELAY, HOLD_TIME);
 	Adafruit_NeoPixel strip = Adafruit_NeoPixel(LED_COUNT, STRIP_PIN, NEO_GRB + NEO_KHZ800);
 
-	unsigned long lastTime = 0;
-
-	uint8_t brightness = 0;
-
 	bool on = true;
-
 	bool cycling = true;
-
-	uint8_t currentEffect = 0; 
-
 	bool transitioning = false;
+	uint8_t brightness = 0;
+	uint8_t currentEffect = 0; 
+	uint8_t currentBuffer = 1;
+	uint8_t fxCount = sizeof(effects) / sizeof(effects[0]);
 	unsigned long now = 0;
+	unsigned long lastTime = 0;
 	unsigned long transitionStart = 0;
 
-	uint8_t currentBuffer = 1;
 	Color buffers[BUFFERS][LED_COUNT];
 
 	Effect *off = new EffectOff(map1);
@@ -117,8 +113,6 @@ protected:
 		new EffectColorCycle(map6),
 		new EffectColorCycle(map7)
 	};
-
-	uint8_t fxCount = sizeof(effects) / sizeof(effects[0]);
 
 	Effect *priFx = nullptr;
 	Effect *secFx = nullptr;
