@@ -25,7 +25,7 @@ public:
 		return Color(new_r, new_g, new_b);
 	}
 
-	uint8_t r, g, b;
+	uint8_t r = 0, g = 0, b = 0;
 };
 
 #endif // _Color_

@@ -23,6 +23,8 @@ void Candelabrium::loop()
 {
 	button1.update();
 	button2.update();
+	//Effect::shimmerUpdate();
+
 	now = millis();
 
 	if (!on)

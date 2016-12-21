@@ -26,9 +26,9 @@ bool EffectTwinkle::update()
 	if (!timeForUpdate()) return false;
 
 	int p;
-	Color c, black = Color(0, 0, 0);
 
-	for (int i = 0; i < LED_COUNT; i++) buffer[i].clear();
+	for (int i = 0; i < LED_COUNT; i++)
+		buffer[i].clear();
 
 	for (int i = 0; i < TWINKLES; i++)
 	{
@@ -36,18 +36,16 @@ bool EffectTwinkle::update()
 		{
 			if (progress[i] < TWINKLE_UP)
 			{
-				c = black.fadeTo(colors[i], progress[i], TWINKLE_UP);
+				buffer[positions[i]] = buffer[positions[i]].fadeTo(colors[i], progress[i], TWINKLE_UP);
 			}
 			else if (progress[i] < (TWINKLE_UP + TWINKLE_STAY))
 			{
-				c = colors[i];
+				buffer[positions[i]] = colors[i];
 			}
 			else
 			{
-				c = colors[i].fadeTo(black, progress[i] - TWINKLE_STAY - TWINKLE_UP, TWINKLE_DOWN);
+				buffer[positions[i]] = colors[i].fadeTo(buffer[positions[i]], progress[i] - TWINKLE_STAY - TWINKLE_UP, TWINKLE_DOWN);
 			}
-
-			buffer[positions[i]] = c;
 		}
 		progress[i]++;
 

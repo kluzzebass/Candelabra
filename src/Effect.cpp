@@ -66,4 +66,37 @@ bool Effect::timeForUpdate()
 	return true;
 }
 
+void Effect::initShimmer()
+{
+	shimmerInitialized = true;
 
+	for (int i = 0; i < LED_COUNT; i++)
+	{
+		shimmerAngle[i] = M_PI * (float)random(0, 100) / (float)100;
+		shimmerSpeed[i] = (float)random(1, 10) / (float)100;
+	}
+}
+
+void Effect::shimmerUpdate()
+{
+	unsigned long now = millis();
+
+	if (now < (lastShimmer + SHIMMER_DELAY)) return;
+
+	lastShimmer = now;
+
+	for (int i = 0; i < LED_COUNT; i++)
+	{
+		shimmerAngle[i] = (shimmerAngle[i] + shimmerSpeed[i]);
+		if (shimmerAngle[i] > (M_PI * 2)) shimmerAngle[i] -= (M_PI * 2);
+	}
+}
+
+Color Effect::shimmer(uint8_t led, int seqPos, bool includeWhite)
+{
+	Color black;
+	seqPos += (int)((sin(shimmerAngle[led]) + 1) * SHIMMER_AMPLITUDE);
+	seqPos %= sequenceLength(includeWhite);
+
+	return colorSequence(seqPos, includeWhite).fadeTo(black, SHIMMER_POWER, 100);
+}
