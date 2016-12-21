@@ -14,6 +14,7 @@ public:
 	Effect(const uint8_t (&map)[LED_COUNT]) : map(map) {}
 	virtual void init(Color *buffer) = 0;
 	virtual bool update() = 0;
+
 	static void shimmerUpdate();
 	static void initShimmer();
 
@@ -40,6 +41,8 @@ protected:
 	static float shimmerAngle[LED_COUNT];
 
 	bool timeForUpdate();
+
+	void clear();
 };
 
 #endif // _Effect_h_

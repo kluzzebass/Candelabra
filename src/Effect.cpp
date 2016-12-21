@@ -66,6 +66,11 @@ bool Effect::timeForUpdate()
 	return true;
 }
 
+void Effect::clear()
+{
+	for (int i; i < LED_COUNT; i++) buffer[i].clear();
+}
+
 void Effect::initShimmer()
 {
 	shimmerInitialized = true;

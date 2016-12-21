@@ -13,6 +13,7 @@
 #include <EffectChase.h>
 #include <EffectTwinkle.h>
 #include <EffectTheaterChase.h>
+#include <EffectPendulum.h>
 
 #include <defs.h>
 
@@ -110,8 +111,8 @@ protected:
 		new EffectChase(map4),
 		new EffectChase(map6),
 		new EffectColorCycle(map1),
-		new EffectColorCycle(map6),
-		new EffectColorCycle(map7)
+		new EffectColorCycle(map7),
+		new EffectPendulum(map1) // Doesn't actually use a map.
 	};
 
 	Effect *priFx = nullptr;
